@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const Wrapper = styled.div`
-  padding: 80px;
-`;
 const Nav = styled.nav`
   display: flex;
   gap: 20px;
@@ -16,12 +13,11 @@ const Link = styled(NavLink)`
 
 export const Header = () => {
   return (
-    <Wrapper>
+    <header>
       <Nav>
-        <Link to="/home">Home</Link>
-        <Link to="/movie">Movie</Link>
+        <Link to="/">Home</Link>
+        <Link to="/movies">Movies</Link>
       </Nav>
-      <Outlet></Outlet>
-    </Wrapper>
+    </header>
   );
 };
