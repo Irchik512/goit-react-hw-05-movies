@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { fetchMovieDetails } from 'moviesApi';
-import { MovieInfo } from 'components/MovieInfo';
-import { Section } from 'components/Section/Section.styled';
-import Loader from 'components/Loader/Loader';
 import { toast } from 'react-toastify';
+import { fetchMovieDetails } from 'moviesApi';
+import Loader from 'components/Loader/Loader';
+import { Button } from 'components/Button';
+import { MovieInfo } from 'components/MovieInfo';
+import { Sections } from 'components/Section';
+import { AdditionInfo } from 'pages/MovieDetailsPage';
+
 export const MovieDetailsPage = () => {
   const [movieData, setMovieData] = useState(null);
   const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getMovieDetails() {
@@ -17,8 +21,11 @@ export const MovieDetailsPage = () => {
       try {
         const movie = await fetchMovieDetails(movieId);
         setMovieData(movie);
+        console.log(movie);
       } catch (error) {
-        toast.error('The resource you requested could not be found.');
+        toast.error(
+          'The resource you requested could not be found. Try again!'
+        );
       } finally {
         setLoading(false);
       }
@@ -27,31 +34,32 @@ export const MovieDetailsPage = () => {
   }, [movieId]);
 
   return (
-    <main>
-      <Section>
-        {loading && <Loader />}
-        <Link to="/">
+    <>
+      <Sections>
+        <Button onClick={() => navigate(-1)}>
           <FaArrowLeft /> Go back
-        </Link>
-        {movieData && (
-          <>
+        </Button>
+        {loading && <Loader />}
+      </Sections>
+      {movieData && (
+        <>
+          <Sections>
             <MovieInfo movie={movieData} />
-            <ul>
-              {' '}
+          </Sections>
+          <Sections>
+            <AdditionInfo>
               Additional information:
               <li>
-                <Link to="/movies/:movieId/cast">Cast</Link>
+                <Link to={`/movies/${movieId}/cast`}>Cast</Link>
               </li>
               <li>
-                <Link to="/movies/:movieId/reviews">Reviews</Link>
+                <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
               </li>
-            </ul>
-          </>
-        )}
-      </Section>
-      <Section>
-        <Outlet />
-      </Section>
-    </main>
+            </AdditionInfo>
+            <Outlet />
+          </Sections>
+        </>
+      )}
+    </>
   );
 };

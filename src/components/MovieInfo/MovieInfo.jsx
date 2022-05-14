@@ -1,3 +1,7 @@
+import PropTypes from 'prop-types';
+import NoImg from 'helpers/ImageNotFound.jpg';
+import { Wraper, Thumb, MovieTitle } from 'components/MovieInfo';
+
 export const MovieInfo = ({
   movie: {
     title,
@@ -9,23 +13,39 @@ export const MovieInfo = ({
   },
 }) => {
   return (
-    <div>
-      <div>
+    <Wraper>
+      <Thumb>
         <img
           alt={title}
-          src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+          src={
+            poster_path === null
+              ? `${NoImg}`
+              : `https://image.tmdb.org/t/p/w300${poster_path}`
+          }
         />
-      </div>
+      </Thumb>
       <div>
-        <h1>
+        <MovieTitle>
           {title} {release_date && `(${release_date})`}
-        </h1>
+        </MovieTitle>
         <p>User score: {vote_average * 10 + '% '}</p>
         <h2> Overview</h2>
         <p>{overview}</p>
         <h3>Genres</h3>
         <p> {genres.map(genre => genre.name + ' ')} </p>
       </div>
-    </div>
+    </Wraper>
   );
+};
+
+MovieInfo.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    poster_path: PropTypes.string.isRequired,
+    release_date: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
+    vote_average: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.number).isRequired,
+  }).isRequired,
 };

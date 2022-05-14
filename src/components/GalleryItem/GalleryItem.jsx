@@ -1,23 +1,35 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import NoImg from 'helpers/ImageNotFound.jpg';
+import { Thumb } from 'components/MovieInfo';
+import {
+  MovieItem,
+  ItemLink,
+  ItemImage,
+  ItemTitle,
+} from 'components/GalleryItem';
 
-export default function GalleryItem({ alt, src, title, id }) {
+export function GalleryItem({ alt, src, title, id }) {
   return (
-    <li className="GalleryItem ">
-      <Link to={`/movies/${id}`}>
-        <img
-          className="GalleryItem-image"
-          src={`https://image.tmdb.org/t/p/w300/${src}`}
-          alt={alt}
-        />
-        <p>{title}</p>
-      </Link>
-    </li>
+    <MovieItem>
+      <ItemLink to={`/movies/${id}`}>
+        <Thumb>
+          <ItemImage
+            src={
+              src !== null
+                ? `https://image.tmdb.org/t/p/w300${src}`
+                : `${NoImg}`
+            }
+            alt={alt}
+          />
+        </Thumb>
+        <ItemTitle>{title}</ItemTitle>
+      </ItemLink>
+    </MovieItem>
   );
 }
 
 GalleryItem.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   alt: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };

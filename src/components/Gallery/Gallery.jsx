@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import GalleryItem from 'components/GalleryItem/GalleryItem';
+import { GalleryItem } from 'components/GalleryItem';
+import { MoviesGallery } from 'components/Gallery';
 
 export function Gallery({ movies, onClick }) {
   return (
-    <ul className="Gallery" onClick={onClick}>
+    <MoviesGallery className="Gallery" onClick={onClick}>
       {movies.map(movie => (
         <GalleryItem
           key={movie.id}
@@ -13,7 +14,7 @@ export function Gallery({ movies, onClick }) {
           id={movie.id}
         />
       ))}
-    </ul>
+    </MoviesGallery>
   );
 }
 

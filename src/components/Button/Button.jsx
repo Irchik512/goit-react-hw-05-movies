@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
+import { GoBackBtn } from 'components/Button';
 
-const Button = ({ onClick, children }) => (
-  <button type="button" className="button" onClick={onClick}>
+export const Button = ({ onClick, children }) => (
+  <GoBackBtn type="button" className="button" onClick={onClick}>
     {children}
-  </button>
+  </GoBackBtn>
 );
 
 Button.defaultProps = {
@@ -12,6 +13,5 @@ Button.defaultProps = {
 
 Button.propTypes = {
   onClick: PropTypes.func,
+  children: PropTypes.node,
 };
-
-export default Button;

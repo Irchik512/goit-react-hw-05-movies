@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-export const CastList = styled.ul`
+export const MoviesGallery = styled.ul`
   list-style: none;
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 0;
+  margin: 10px 0 20 0;
 `;
