@@ -46,6 +46,8 @@ MovieInfo.propTypes = {
       .isRequired,
     vote_average: PropTypes.number.isRequired,
     overview: PropTypes.string.isRequired,
-    genres: PropTypes.arrayOf(PropTypes.number).isRequired,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({ name: PropTypes.string.isRequired })
+    ).isRequired,
   }).isRequired,
 };

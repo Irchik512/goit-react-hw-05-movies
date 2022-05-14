@@ -21,7 +21,6 @@ export const MovieDetailsPage = () => {
       try {
         const movie = await fetchMovieDetails(movieId);
         setMovieData(movie);
-        console.log(movie);
       } catch (error) {
         toast.error(
           'The resource you requested could not be found. Try again!'

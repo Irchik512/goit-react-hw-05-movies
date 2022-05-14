@@ -1,23 +1,47 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from 'pages/Layout';
-import { HomePage } from 'pages/HomePage';
-import { MoviesPage } from 'pages/MoviesPage';
-import { MovieDetailsPage } from 'pages/MovieDetailsPage';
-import { Cast } from './Cast/Cast';
-import { Reviews } from 'components/Reviews';
+import { lazy, Suspense } from 'react';
+
+const HomePage = lazy(() =>
+  import('../pages/HomePage' /* WebpackChunkName: "home-page" */).then(
+    module => ({ default: module.HomePage })
+  )
+);
+const MoviesPage = lazy(() =>
+  import('../pages/MoviesPage' /* WebpackChunkName: "movies-page" */).then(
+    module => ({ default: module.MoviesPage })
+  )
+);
+const MovieDetailsPage = lazy(() =>
+  import(
+    '../pages/MovieDetailsPage' /* WebpackChunkName: "movie-details-page" */
+  ).then(module => ({ default: module.MovieDetailsPage }))
+);
+const Cast = lazy(() =>
+  import('components/Cast' /* WebpackChunkName: "cast" */).then(module => ({
+    default: module.Cast,
+  }))
+);
+const Reviews = lazy(() =>
+  import('components/Reviews' /* WebpackChunkName: "reviews" */).then(
+    module => ({ default: module.Reviews })
+  )
+);
 
 export const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="movies/" element={<MoviesPage />} />
-        <Route path="movies/:movieId/" element={<MovieDetailsPage />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
+    <Suspense fallback="">
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="movies/" element={<MoviesPage />} />
+          <Route path="movies/:movieId/" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 };

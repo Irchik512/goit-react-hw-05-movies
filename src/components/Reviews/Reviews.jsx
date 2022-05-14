@@ -16,7 +16,6 @@ export const Reviews = () => {
       try {
         const result = await movieReviews(movieId);
         setReviews(result);
-        console.log(result);
       } catch (error) {
         toast.error('The resource you requested could not be found.');
       } finally {
