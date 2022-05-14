@@ -18,14 +18,14 @@ const MovieDetailsPage = lazy(() =>
   ).then(module => ({ default: module.MovieDetailsPage }))
 );
 const Cast = lazy(() =>
-  import('./components/Cast' /* WebpackChunkName: "cast" */).then(module => ({
+  import('./Cast' /* WebpackChunkName: "cast" */).then(module => ({
     default: module.Cast,
   }))
 );
 const Reviews = lazy(() =>
-  import('./components/Reviews' /* WebpackChunkName: "reviews" */).then(
-    module => ({ default: module.Reviews })
-  )
+  import('./Reviews' /* WebpackChunkName: "reviews" */).then(module => ({
+    default: module.Reviews,
+  }))
 );
 
 export const App = () => {
