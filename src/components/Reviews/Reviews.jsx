@@ -1,44 +1,23 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { movieReviews } from 'moviesApi';
 import Loader from 'components/Loader/Loader';
 import { RevieItem } from 'components/Reviews';
+import { useFetchData } from 'hooks';
 
 export const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { movieId } = useParams();
-
-  useEffect(() => {
-    async function getMovieDetails() {
-      setLoading(true);
-      try {
-        const result = await movieReviews(movieId);
-        setReviews(result);
-      } catch (error) {
-        toast.error('The resource you requested could not be found.');
-      } finally {
-        setLoading(false);
-      }
-    }
-    getMovieDetails();
-  }, [movieId]);
+  const { data, loading } = useFetchData(movieReviews);
 
   return (
     <>
       {loading && <Loader />}
-      {reviews !== [] ? (
+      {data && (
         <ul>
-          {reviews.map(({ id, author, content }) => (
+          {data.map(({ id, author, content }) => (
             <RevieItem key={id}>
               <h3>{author}</h3>
               <p>{content}</p>
             </RevieItem>
           ))}
         </ul>
-      ) : (
-        <p> We don't have any revievws for this movie! </p>
       )}
     </>
   );

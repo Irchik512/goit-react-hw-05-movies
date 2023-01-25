@@ -4,7 +4,7 @@ import { MoviesGallery } from 'components/Gallery';
 
 export function Gallery({ movies, onClick }) {
   return (
-    <MoviesGallery className="Gallery" onClick={onClick}>
+    <MoviesGallery onClick={onClick}>
       {movies.map(movie => (
         <GalleryItem
           key={movie.id}

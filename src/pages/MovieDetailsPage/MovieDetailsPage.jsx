@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link, Outlet, useParams, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { useFetchData } from 'hooks';
 import { fetchMovieDetails } from 'moviesApi';
 import Loader from 'components/Loader/Loader';
 import { Button } from 'components/Button';
@@ -10,27 +9,8 @@ import { Sections } from 'components/Section';
 import { AdditionInfo } from 'pages/MovieDetailsPage';
 
 export const MovieDetailsPage = () => {
-  const [movieData, setMovieData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const { movieId } = useParams();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function getMovieDetails() {
-      setLoading(true);
-      try {
-        const movie = await fetchMovieDetails(movieId);
-        setMovieData(movie);
-      } catch (error) {
-        toast.error(
-          'The resource you requested could not be found. Try again!'
-        );
-      } finally {
-        setLoading(false);
-      }
-    }
-    getMovieDetails();
-  }, [movieId]);
+  const { data, loading, movieId } = useFetchData(fetchMovieDetails);
 
   return (
     <>
@@ -40,10 +20,10 @@ export const MovieDetailsPage = () => {
         </Button>
         {loading && <Loader />}
       </Sections>
-      {movieData && (
+      {data && (
         <>
           <Sections>
-            <MovieInfo movie={movieData} />
+            <MovieInfo movie={data} />
           </Sections>
           <Sections>
             <AdditionInfo>

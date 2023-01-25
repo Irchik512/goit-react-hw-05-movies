@@ -28,7 +28,7 @@ export const MovieInfo = ({
         <MovieTitle>
           {title} {release_date && `(${release_date})`}
         </MovieTitle>
-        <p>User score: {vote_average * 10 + '% '}</p>
+        <p>User score: {(vote_average * 10).toFixed(2) + '% '}</p>
         <h2> Overview</h2>
         <p>{overview}</p>
         <h3>Genres</h3>
