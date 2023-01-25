@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchTrendingMovies, fetchMoviesOnQuery } from 'moviesApi';
-
 import { toast } from 'react-toastify';
 
 export const useFetchMovies = () => {
@@ -29,7 +28,6 @@ export const useFetchData = dataAPI => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
-  console.log(dataAPI);
 
   useEffect(() => {
     async function getMovieDetails() {
