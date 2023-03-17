@@ -1,9 +1,10 @@
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
-export default function Loader() {
+const Loader = () => {
   return (
     <div>
       <PacmanLoader color="grey" />
     </div>
   );
-}
+};
+export default Loader;

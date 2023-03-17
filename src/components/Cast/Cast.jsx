@@ -1,11 +1,12 @@
 import Loader from 'components/Loader/Loader';
 import { CastList } from 'components/Cast';
 import { FotoCard } from 'components/FotoCard';
-import { useFetchData } from 'hooks';
+import { useFetchMovieInfo } from 'hooks';
 import { movieCasts } from 'moviesApi';
 
 export const Cast = () => {
-  const { data, loading } = useFetchData(movieCasts);
+  const { data, loading } = useFetchMovieInfo(movieCasts);
+  console.dir(data);
   return (
     <>
       {loading && <Loader />}

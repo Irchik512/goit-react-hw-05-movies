@@ -3,7 +3,7 @@ import { Gallery } from 'components/Gallery';
 import { Sections } from 'components/Section';
 import { useFetchMovies } from 'hooks';
 
-export const HomePage = () => {
+const HomePage = () => {
   const { items, loading } = useFetchMovies();
 
   return (
@@ -13,3 +13,4 @@ export const HomePage = () => {
     </Sections>
   );
 };
+export default HomePage;

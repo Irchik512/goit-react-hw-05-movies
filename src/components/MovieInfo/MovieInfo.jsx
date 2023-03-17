@@ -41,7 +41,7 @@ export const MovieInfo = ({
 MovieInfo.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    poster_path: PropTypes.string.isRequired,
+    poster_path: PropTypes.string,
     release_date: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
       .isRequired,
     vote_average: PropTypes.number.isRequired,

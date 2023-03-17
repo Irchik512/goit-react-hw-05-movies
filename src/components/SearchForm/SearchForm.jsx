@@ -6,7 +6,7 @@ import {
   FindMovieForm,
   FindMovieInput,
   FindMovieButton,
-} from 'components/Form';
+} from 'components/SearchForm';
 
 export const SearchForm = ({ onSubmit }) => {
   const [searchQuery, setSearchQuery] = useState('');

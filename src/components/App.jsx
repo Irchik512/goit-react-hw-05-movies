@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from 'pages/Layout';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 
 const HomePage = lazy(() =>
   import('../pages/HomePage' /* WebpackChunkName: "home-page" */).then(
@@ -27,21 +27,20 @@ const Reviews = lazy(() =>
     default: module.Reviews,
   }))
 );
+//.then(module => ({default: module.Reviews,})) - це спопіб обійти іменований експорт. ЗАЛИШИЛА ЙОГО, ЩОБ ПАМЯТАТИ ПРО ТАКУ МОЖЛИВІСТЬ!
 
 export const App = () => {
   return (
-    <Suspense fallback="">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="movies/" element={<MoviesPage />} />
-          <Route path="movies/:movieId/" element={<MovieDetailsPage />}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/" />} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="movies/" element={<MoviesPage />} />
+        <Route path="movies/:movieId/" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
         </Route>
-      </Routes>
-    </Suspense>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
   );
 };

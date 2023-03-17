@@ -1,6 +1,6 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { useFetchData } from 'hooks';
+import { useFetchMovieInfo } from 'hooks';
 import { fetchMovieDetails } from 'moviesApi';
 import Loader from 'components/Loader/Loader';
 import { Button } from 'components/Button';
@@ -10,12 +10,14 @@ import { AdditionInfo } from 'pages/MovieDetailsPage';
 
 export const MovieDetailsPage = () => {
   const navigate = useNavigate();
-  const { data, loading, movieId } = useFetchData(fetchMovieDetails);
-
+  const location = useLocation();
+  // const backLinkLocationRef = useRef(location.state?.from ?? '/movies')
+  const { data, loading, movieId } = useFetchMovieInfo(fetchMovieDetails);
+  console.log(data);
   return (
     <>
       <Sections>
-        <Button onClick={() => navigate(-1)}>
+        <Button onClick={() => navigate(location?.state?.from ?? '/')}>
           <FaArrowLeft /> Go back
         </Button>
         {loading && <Loader />}
@@ -29,10 +31,20 @@ export const MovieDetailsPage = () => {
             <AdditionInfo>
               Additional information:
               <li>
-                <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+                <Link
+                  to={`/movies/${movieId}/cast`}
+                  state={{ from: location?.state?.from ?? '/' }}
+                >
+                  Cast
+                </Link>
               </li>
               <li>
-                <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+                <Link
+                  to={`/movies/${movieId}/reviews`}
+                  state={{ from: location?.state?.from ?? '/' }}
+                >
+                  Reviews
+                </Link>
               </li>
             </AdditionInfo>
             <Outlet />

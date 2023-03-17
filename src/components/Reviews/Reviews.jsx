@@ -1,15 +1,15 @@
 import { movieReviews } from 'moviesApi';
 import Loader from 'components/Loader/Loader';
 import { RevieItem } from 'components/Reviews';
-import { useFetchData } from 'hooks';
+import { useFetchMovieInfo } from 'hooks';
 
 export const Reviews = () => {
-  const { data, loading } = useFetchData(movieReviews);
-
+  const { data, loading } = useFetchMovieInfo(movieReviews);
+  console.log(data);
   return (
     <>
       {loading && <Loader />}
-      {data && (
+      {data && data.length > 0 ? (
         <ul>
           {data.map(({ id, author, content }) => (
             <RevieItem key={id}>
@@ -18,7 +18,7 @@ export const Reviews = () => {
             </RevieItem>
           ))}
         </ul>
-      )}
+      ) : null}
     </>
   );
 };

@@ -24,28 +24,6 @@ export const useFetchMovies = () => {
   return { items, loading };
 };
 
-export const useFetchData = dataAPI => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const { movieId } = useParams();
-
-  useEffect(() => {
-    async function getMovieDetails() {
-      setLoading(true);
-      try {
-        const movie = await dataAPI(movieId);
-        setData(movie);
-      } catch (error) {
-        toast.error('The resource you requested could not be found.');
-      } finally {
-        setLoading(false);
-      }
-    }
-    getMovieDetails();
-  }, [dataAPI, movieId]);
-  return { loading, data, movieId };
-};
-
 export const useFetchByQuery = query => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -68,4 +46,29 @@ export const useFetchByQuery = query => {
     getMovies();
   }, [query]);
   return { loading, data };
+};
+
+export const useFetchMovieInfo = dataAPI => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { movieId } = useParams();
+
+  useEffect(() => {
+    async function getMovieDetails() {
+      setLoading(true);
+      try {
+        const movie = await dataAPI(movieId);
+        if (movie.length === 0) {
+          return console.error();
+        }
+        setData(movie);
+      } catch (error) {
+        toast.error('The resource you requested not exist yet.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    getMovieDetails();
+  }, [dataAPI, movieId]);
+  return { loading, data, movieId };
 };

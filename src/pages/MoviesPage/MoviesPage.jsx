@@ -1,7 +1,7 @@
 import Loader from 'components/Loader/Loader';
 import { Gallery } from 'components/Gallery';
 import { Sections } from 'components/Section';
-import { SearchForm } from 'components/Form';
+import { SearchForm } from 'components/SearchForm';
 import { useSearchParams } from 'react-router-dom';
 import { useFetchByQuery } from 'hooks';
 

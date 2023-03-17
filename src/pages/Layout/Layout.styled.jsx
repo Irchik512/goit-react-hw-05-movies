@@ -11,7 +11,7 @@ export const Footer = styled.footer`
   background-color: #f3e6b5b3;
 `;
 export const Main = styled.main`
-  min-height: 100%;
+  max-height: 100%;
 `;
 export const PositionWraper = styled.div`
   display: grid;
