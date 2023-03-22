@@ -9,7 +9,7 @@ const theme = {};
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename="/goit-react-hw-05-movies/">
+    <BrowserRouter basename="/goit-react-hw-05-movies">
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
