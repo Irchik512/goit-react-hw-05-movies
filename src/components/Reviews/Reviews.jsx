@@ -1,14 +1,11 @@
 import { movieReviews } from 'moviesApi';
-import Loader from 'components/Loader/Loader';
 import { RevieItem } from 'components/Reviews';
 import { useFetchMovieInfo } from 'hooks';
 
-export const Reviews = () => {
-  const { data, loading } = useFetchMovieInfo(movieReviews);
-  console.log(data);
+const Reviews = () => {
+  const { data } = useFetchMovieInfo(movieReviews);
   return (
     <>
-      {loading && <Loader />}
       {data && data.length > 0 ? (
         <ul>
           {data.map(({ id, author, content }) => (
@@ -22,3 +19,4 @@ export const Reviews = () => {
     </>
   );
 };
+export default Reviews;

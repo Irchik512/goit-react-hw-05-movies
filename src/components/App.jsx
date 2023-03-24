@@ -3,31 +3,20 @@ import { Layout } from 'pages/Layout';
 import { lazy } from 'react';
 
 const HomePage = lazy(() =>
-  import('../pages/HomePage' /* WebpackChunkName: "home-page" */).then(
-    module => ({ default: module.HomePage })
-  )
+  import('../pages/HomePage/HomePage' /* WebpackChunkName: "home-page" */)
 );
 const MoviesPage = lazy(() =>
-  import('../pages/MoviesPage' /* WebpackChunkName: "movies-page" */).then(
-    module => ({ default: module.MoviesPage })
-  )
+  import('../pages/MoviesPage/MoviesPage' /* WebpackChunkName: "movies-page" */)
 );
 const MovieDetailsPage = lazy(() =>
   import(
-    '../pages/MovieDetailsPage' /* WebpackChunkName: "movie-details-page" */
-  ).then(module => ({ default: module.MovieDetailsPage }))
+    '../pages/MovieDetailsPage/MovieDetailsPage' /* WebpackChunkName: "movie-details-page" */
+  )
 );
-const Cast = lazy(() =>
-  import('./Cast' /* WebpackChunkName: "cast" */).then(module => ({
-    default: module.Cast,
-  }))
-);
+const Cast = lazy(() => import('./Cast/Cast' /* WebpackChunkName: "cast" */));
 const Reviews = lazy(() =>
-  import('./Reviews' /* WebpackChunkName: "reviews" */).then(module => ({
-    default: module.Reviews,
-  }))
+  import('./Reviews/Reviews' /* WebpackChunkName: "reviews" */)
 );
-//.then(module => ({default: module.Reviews,})) - це спопіб обійти іменований експорт. ЗАЛИШИЛА ЙОГО, ЩОБ ПАМЯТАТИ ПРО ТАКУ МОЖЛИВІСТЬ!
 
 export const App = () => {
   return (

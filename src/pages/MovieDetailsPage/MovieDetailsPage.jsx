@@ -7,20 +7,18 @@ import { Button } from 'components/Button';
 import { MovieInfo } from 'components/MovieInfo';
 import { Sections } from 'components/Section';
 import { AdditionInfo } from 'pages/MovieDetailsPage';
+import { Suspense } from 'react';
 
-export const MovieDetailsPage = () => {
+const MovieDetailsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const backLinkLocationRef = useRef(location.state?.from ?? '/movies')
-  const { data, loading, movieId } = useFetchMovieInfo(fetchMovieDetails);
-  console.log(data);
+  const { data, movieId } = useFetchMovieInfo(fetchMovieDetails);
   return (
     <>
       <Sections>
         <Button onClick={() => navigate(location?.state?.from ?? '/')}>
           <FaArrowLeft /> Go back
         </Button>
-        {loading && <Loader />}
       </Sections>
       {data && (
         <>
@@ -47,10 +45,13 @@ export const MovieDetailsPage = () => {
                 </Link>
               </li>
             </AdditionInfo>
-            <Outlet />
+            <Suspense fallback={<Loader />}>
+              <Outlet />
+            </Suspense>
           </Sections>
         </>
       )}
     </>
   );
 };
+export default MovieDetailsPage;
